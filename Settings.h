@@ -8,6 +8,7 @@
 #include "Command.h"
 
 class Settings: public Command {
+public:
     Settings();
     void execute() override;
 };

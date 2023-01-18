@@ -8,6 +8,7 @@
 #include "Command.h"
 
 class Classify: public Command {
+public:
     Classify();
     void execute() override;
 };

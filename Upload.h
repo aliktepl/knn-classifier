@@ -8,6 +8,7 @@
 #include "Command.h"
 
 class Upload: public Command {
+public:
     Upload();
     void execute() override;
 };

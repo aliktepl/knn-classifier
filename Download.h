@@ -9,6 +9,7 @@
 
 
 class Download: public Command {
+public:
     Download();
     void execute() override;
 };
