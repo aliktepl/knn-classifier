@@ -20,7 +20,6 @@ public:
     static double chebyshev(const vector<double>& vector1, const vector<double>& vector2);
     static  vector<double> fillDistances(vector<double> v1,vector<double> v2);
     static  vector<double> fillSums(vector<double> v1,vector<double> v2);
-    static  int precision(double number);
 
 };
 
