@@ -4,7 +4,7 @@
 
 #include "Settings.h"
 
-Settings::Settings() {
+Settings::Settings(DefaultIO *dio) : Command(dio) {
     this->description = "2. algorithm settings";
 }
 

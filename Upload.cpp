@@ -4,7 +4,7 @@
 
 #include "Upload.h"
 
-Upload::Upload() {
+Upload::Upload(DefaultIO *dio) : Command(dio) {
     this->description = "1. upload an unclassified csv data file";
 }
 void Upload::execute() {

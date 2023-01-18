@@ -8,7 +8,8 @@
 #include "Command.h"
 
 class Settings: public Command {
-    Settings();
+public:
+    explicit Settings(DefaultIO *dio);
     void execute() override;
 };
 

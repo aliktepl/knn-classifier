@@ -4,7 +4,7 @@
 
 #include "Classify.h"
 
-Classify::Classify() {
+Classify::Classify(DefaultIO *dio) : Command(dio) {
     this->description = "3. classify data";
 }
 

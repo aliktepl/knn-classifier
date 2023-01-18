@@ -8,7 +8,8 @@
 #include "Command.h"
 
 class Upload: public Command {
-    Upload();
+public:
+    explicit Upload(DefaultIO *dio);
     void execute() override;
 };
 
