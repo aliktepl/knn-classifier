@@ -8,7 +8,8 @@
 #include "Command.h"
 
 class Classify: public Command {
-    Classify();
+public:
+    explicit Classify(DefaultIO *dio);
     void execute() override;
 };
 

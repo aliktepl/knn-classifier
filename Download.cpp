@@ -4,7 +4,7 @@
 
 #include "Download.h"
 
-Download::Download() {
+Download::Download(DefaultIO *dio) : Command(dio) {
     this->description = "5. download results";
 }
 

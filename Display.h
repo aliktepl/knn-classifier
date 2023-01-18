@@ -8,7 +8,8 @@
 #include "Command.h"
 
 class Display: public Command {
-    Display();
+public:
+    explicit Display(DefaultIO *dio);
     void execute() override;
 };
 

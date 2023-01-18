@@ -14,8 +14,9 @@ using namespace std;
 class Command {
 protected:
     string description;
-    DefaultIO dio;
+    DefaultIO *dio;
 public:
+    Command(DefaultIO *dio);
     virtual void execute() = 0;
 };
 
