@@ -9,7 +9,7 @@
 
 class Upload: public Command {
 public:
-    Upload();
+    explicit Upload(DefaultIO *dio);
     void execute() override;
 };
 

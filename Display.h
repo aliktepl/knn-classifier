@@ -9,8 +9,8 @@
 
 class Display: public Command {
 public:
-    Display();
-    void execute() override;
+   explicit Display(DefaultIO *dio);
+   void execute() override;
 };
 
 

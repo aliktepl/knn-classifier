@@ -9,7 +9,7 @@
 
 class Classify: public Command {
 public:
-    Classify();
+    explicit Classify(DefaultIO *dio);
     void execute() override;
 };
 

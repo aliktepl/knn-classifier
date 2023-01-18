@@ -9,7 +9,7 @@
 
 class Settings: public Command {
 public:
-    Settings();
+    explicit Settings(DefaultIO *dio);
     void execute() override;
 };
 

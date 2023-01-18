@@ -10,7 +10,7 @@
 
 class Download: public Command {
 public:
-    Download();
+    explicit Download(DefaultIO *dio);
     void execute() override;
 };
 

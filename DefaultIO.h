@@ -5,18 +5,18 @@
 #ifndef AX1_EX4_DEFAULTIO_H
 #define AX1_EX4_DEFAULTIO_H
 
+#include "string"
+
+using namespace std;
+
 
 class DefaultIO {
+public:
+    virtual string read() = 0;
+    virtual void write(string data) = 0;
 
 };
 
-class StandardIO {
-
-};
-
-class SocketIO {
-
-};
 
 
 #endif //AX1_EX4_DEFAULTIO_H
