@@ -17,6 +17,7 @@ protected:
     DefaultIO *dio;
 public:
     Command(DefaultIO *dio);
+    string getDescription();
     virtual void execute() = 0;
 };
 
