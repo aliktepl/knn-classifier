@@ -10,5 +10,6 @@ Display::Display(DefaultIO *dio) : Command(dio) {
 
 void Display::execute() {
 
+    dio->write("Done");
 }
 
