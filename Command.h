@@ -14,14 +14,12 @@ using namespace std;
 
 class Command {
 protected:
-    Configuration config;
     string description;
     DefaultIO *dio;
 public:
     Command(DefaultIO *dio);
     string getDescription();
-    Configuration getConfig();
-    virtual void execute() = 0;
+    virtual void execute(Configuration *config) = 0;
 };
 
 

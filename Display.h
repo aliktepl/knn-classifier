@@ -10,7 +10,7 @@
 class Display: public Command {
 public:
    explicit Display(DefaultIO *dio);
-   void execute() override;
+   void execute(Configuration* config) override;
 };
 
 

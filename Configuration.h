@@ -14,6 +14,7 @@ private:
     int k;
 public:
     Configuration();
+    ~Configuration();
     string getTrainPath();
     string getTestPath();
     string getMetric();

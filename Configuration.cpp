@@ -7,6 +7,10 @@ Configuration::Configuration() {
 
 }
 
+Configuration::~Configuration() {
+
+}
+
 string Configuration::getTrainPath() {
     return this->trainPath;
 }
@@ -33,4 +37,8 @@ void Configuration::setMetric(string dist) {
 
 void Configuration::setK(int x) {
     this->k = x;
+}
+
+string Configuration::getMetric() {
+    return this->metric;
 }
