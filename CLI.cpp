@@ -9,6 +9,7 @@
  * @param dio is the default io
  */
 CLI::CLI(DefaultIO *dio){
+    this->dio = dio;
     Upload upload = Upload(getDio());
     this->commands.push_back(&upload);
     Settings settings = Settings(getDio());
@@ -43,6 +44,7 @@ void CLI::start() {
     }
     getDio()->write(menu);
     string option;
+    Configuration config = Configuration();
     while(true){
         option = getDio()->read();
         if(!isInt(option)){
@@ -56,9 +58,9 @@ void CLI::start() {
             continue;
         }
         if(optionNum == 8){
-            getCommands().at(optionNum - 1)->execute();
+            getCommands().at(optionNum - 1)->execute(&config);
             break;
         }
-        getCommands().at(optionNum - 1)->execute();
+        getCommands().at(optionNum - 1)->execute(&config);
     }
 }
