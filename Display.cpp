@@ -8,7 +8,7 @@ Display::Display(DefaultIO *dio) : Command(dio) {
     this->description = "4. display results";
 }
 
-void Display::execute() {
+void Display::execute(Configuration* config) {
 
     dio->write("Done");
 }

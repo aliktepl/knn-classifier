@@ -7,6 +7,6 @@ Exit::Exit(DefaultIO *dio) : Command(dio){
     this->description = "8. exit";
 }
 
-void Exit::execute() {
+void Exit::execute(Configuration* config) {
 
 }

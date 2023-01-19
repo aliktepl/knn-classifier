@@ -9,7 +9,7 @@ Classify::Classify(DefaultIO *dio) : Command(dio) {
     this->description = "3. classify data";
 }
 
-void Classify::execute() {
+void Classify::execute(Configuration* config) {
     //default p value for the minkowski distance;
     int p = 2;
     vector<Classified> classifiedVectors;

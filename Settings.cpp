@@ -8,7 +8,7 @@ Settings::Settings(DefaultIO *dio) : Command(dio) {
     this->description = "2. algorithm settings";
 }
 
-void Settings::execute() {
+void Settings::execute(Configuration* config) {
     //default values
     int k = 5;
     string metric = "EUC";

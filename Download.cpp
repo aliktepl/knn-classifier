@@ -8,7 +8,7 @@ Download::Download(DefaultIO *dio) : Command(dio) {
     this->description = "5. download results";
 }
 
-void Download::execute() {
+void Download::execute(Configuration* config) {
 
 }
 
