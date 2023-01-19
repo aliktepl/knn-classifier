@@ -7,17 +7,20 @@
 
 #include <string>
 #include "DefaultIO.h"
+#include "Configuration.h"
 
 using namespace std;
 
 
 class Command {
 protected:
+    Configuration config;
     string description;
     DefaultIO *dio;
 public:
     Command(DefaultIO *dio);
     string getDescription();
+    Configuration getConfig();
     virtual void execute() = 0;
 };
 
