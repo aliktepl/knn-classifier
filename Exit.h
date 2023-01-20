@@ -6,6 +6,8 @@
 #define AX1_EX4_EXIT_H
 
 #include "Command.h"
+#include "iostream"
+using namespace std;
 
 class Exit : public Command{
 public:

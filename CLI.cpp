@@ -10,18 +10,18 @@
  */
 CLI::CLI(DefaultIO *dio){
     this->dio = dio;
-    Upload upload = Upload(getDio());
-    this->commands.push_back(&upload);
-    Settings settings = Settings(getDio());
-    this->commands.push_back(&settings);
-    Classify classify = Classify(getDio());
-    this->commands.push_back(&classify);
-    Display display = Display(getDio());
-    this->commands.push_back(&display);
-    Download download = Download(getDio());
-    this->commands.push_back(&download);
-    Exit exit = Exit(getDio());
-    this->commands.push_back(&exit);
+    Upload *upload = new Upload(getDio());
+    this->commands.push_back(upload);
+    Settings *settings = new Settings(getDio());
+    this->commands.push_back(settings);
+    Classify *classify = new Classify(getDio());
+    this->commands.push_back(classify);
+    Display *display = new Display(getDio());
+    this->commands.push_back(display);
+    Download *download = new Download(getDio());
+    this->commands.push_back(download);
+    Exit *exit = new Exit(getDio());
+    this->commands.push_back(exit);
 }
 
 vector<Command *> CLI::getCommands() {
@@ -36,7 +36,7 @@ DefaultIO *CLI::getDio() {
  * and is responsible for the flow of the interaction between client and server.
  * When the connection ends and the user decides to exit it ends.
  */
-void CLI::start() {
+void CLI::start(int id, bool* closeConnection) {
     string menu;
     for(auto command : getCommands()){
         menu.append(command->getDescription());
@@ -58,7 +58,7 @@ void CLI::start() {
             continue;
         }
         if(optionNum == 8){
-            getCommands().at(optionNum - 1)->execute(&config);
+            getCommands().at(optionNum - 3)->execute(&config);
             break;
         }
         getCommands().at(optionNum - 1)->execute(&config);

@@ -8,5 +8,5 @@ Exit::Exit(DefaultIO *dio) : Command(dio){
 }
 
 void Exit::execute(Configuration* config) {
-
+    cout << "Executing exit..." <<endl;
 }

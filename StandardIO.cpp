@@ -16,3 +16,5 @@ string StandardIO::read() {
 void StandardIO::write(string output) {
     cout << output << endl;
 }
+
+StandardIO::StandardIO() = default;
