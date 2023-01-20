@@ -23,15 +23,13 @@ ServerInit::ServerInit(char **arguments, int size) {
  * @return true if the arguments are in a valid format.
  */
 bool ServerInit::checkArg() {
-    if (this->size < 3) {
+    if (this->size != 2) {
         return false;
     }
-    for (int i = 0; i < strlen(arguments[2]); i++) {
-        if (!isdigit(arguments[2][i])) {
-            return false;
-        }
+    if(!isInt(arguments[1])){
+        return false;
     }
-    int port = stoi(arguments[2]);
+    int port = stoi(arguments[1]);
     if (port < 0 || port > 65535) {
         return false;
     }
@@ -40,12 +38,5 @@ bool ServerInit::checkArg() {
 
 int ServerInit::getPort() {
     // use check method first!
-    return stoi(arguments[2]);
-}
-/**
- * get the path of the classified file
- * @return the k value
- */
-char *ServerInit::filePath() {
-    return arguments[1];
+    return stoi(arguments[1]);
 }

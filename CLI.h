@@ -24,7 +24,7 @@ private:
     vector<Command*> commands = {};
 public:
     CLI(DefaultIO *dio);
-    void start();
+    void start(int id, bool* closeConnection);
     vector<Command*> getCommands();
     DefaultIO* getDio();
 };

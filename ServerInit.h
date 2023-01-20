@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <cstring>
+#include "Utilities.h"
 
 class ServerInit {
 private:
@@ -15,7 +16,6 @@ private:
 public:
     ServerInit(char** arguments, int size);
     ~ServerInit();
-    char* filePath();
     bool checkArg();
     int getPort();
 };

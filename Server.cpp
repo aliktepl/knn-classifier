@@ -6,12 +6,15 @@
 #include "kNearestNeighbors.h"
 #include "StringValidation.h"
 #include "ServerInit.h"
+#include "CLI.h"
+#include "StandardIO.h"
 #include <iostream>
 #include <sys/socket.h>
 #include <cstdio>
 #include <netinet/in.h>
 #include <unistd.h>
 #include <cstring>
+#include "thread"
 
 using namespace std;
 
@@ -28,16 +31,6 @@ int main(int argc, char **argv) {
         cout << "Invalid input!" << endl;
         return 0;
     }
-    // pass file path to file reader and instantiate it
-    FileReader fileReader = FileReader(serverInit.filePath());
-    // feed 'classified' vector file contents and return true if done successfully
-    if (!fileReader.feedVector()) {
-        return 0;
-    }
-    vector<Classified> classifiedVectors = fileReader.getVector();
-    //default p value for minkowski distance
-    int p = 2;
-    //get the port
     const int server_port = serverInit.getPort();
     //open the socket
     int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -65,50 +58,15 @@ int main(int argc, char **argv) {
         if (client_sock < 0) {
             perror("error accepting client");
         }
-        string cat;
-        while (true) {
-            char buffer[4096];
-            int expected_data_len = sizeof(buffer);
-            //receive a vectore, distance and k from the client
-            int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
-            //convert the buffer to a string
-            string buffer_str(buffer, read_bytes);
-            //if there was a problem receiving the message tell the client
-            if (read_bytes == 0) {
-                cat = "invalid input";
-            } else if (read_bytes < 0) {
-                cat = "invalid input";
-            } else {
-                //if the client sent -1 wait for new connections
-                if(buffer_str == "-1") {
-                    break;
-                }
-                //validate the string
-                StringValidation valid(buffer_str);
-                if (!valid.checkValidation()) {
-                    cat = "invalid input";
-                } else {
-                    vector<double> input = valid.getVector();
-                    string distance = valid.getDistance();
-                    int k = valid.getK();
-                    //if the vector or k don't fit the file send error.
-                    if(k > classifiedVectors.size() || input.size() != fileReader.getSize()) {
-                        cat = "invalid input";
-                    } else {
-                        //calculate the category
-                        kNearestNeighbors knn(classifiedVectors, input, k);
-                        cat = knn.mapDistances(knn.calculateDistances(distance, p));
-                    }
-                }
-            }
-            //send the category or the error message to the client.
-            int sent_bytes = send(client_sock, cat.c_str(), cat.size(), 0);
-            memset(buffer, 0, sizeof(buffer));
-            if (sent_bytes < 0) {
-                break;
-            }
+        StandardIO stdio = StandardIO();
+        CLI clientCLI(&stdio);
+        bool closeConnection = false;
+        bool* ptrCloseConnection = &closeConnection;
+        thread t([&]{ clientCLI.start(client_sock, ptrCloseConnection);});
+        if(*(ptrCloseConnection)){
+            close(sock);
+            t.join();
         }
     }
-    close(sock);
     return 0;
 }

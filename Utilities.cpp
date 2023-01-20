@@ -44,3 +44,50 @@ bool isContained(vector<int> numVector, int num){
     }
     return false;
 }
+/**
+ * Validates distance type setting
+ * @param type is the type
+ * @return returns true if is of valid type
+ */
+bool checkMetric(const string& type){
+    // validate distance
+    if  (!type.empty() &&
+        (type != "AUC") && (type != "MAN") &&
+        (type != "CHB") && (type != "CAM") &&
+        (type != "MIN")) {
+        return false;
+    }
+    return true;
+}
+/**
+ * Checks if a string is a of classified vector type , e.g (x1, x2, x3, classification)
+ * @param elements are the elements concatenated to a string
+ * @return true if is of type classified vector, otherwise false
+ */
+bool checkClassifiedVec(const string& elements){
+    if (elements.empty()){return false;}
+    stringstream ss(elements);
+    string element;
+    bool classFlag = false;
+    int iter = 0, decPointCount = 0;
+    while(getline(ss, element, ' ')){
+        for (auto x: element) {
+            if (!isdigit(x) && x != '.' && iter != 0) {
+                classFlag = true;
+            } else if(!isdigit(x) && x == '.' && decPointCount == 0){
+                decPointCount++;
+            } else if(!isdigit(x) && decPointCount > 1){
+                return false;
+            }
+        }
+        if (classFlag) { break; }
+        iter++;
+    }
+    if (element.empty()) {return false;}
+    getline(ss, element, ' ');
+    if(ss.eof()){
+        return true;
+    } else {
+        return false;
+    }
+}
