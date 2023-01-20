@@ -21,6 +21,7 @@ private:
     vector<bool> executes{false, false, false, false, false};
 public:
     Configuration();
+    ~Configuration();
     string getTrainPath();
     string getTestPath();
     string getMetric();

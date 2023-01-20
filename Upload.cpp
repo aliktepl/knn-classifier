@@ -9,6 +9,7 @@ Upload::Upload(DefaultIO *dio) : Command(dio) {
     this->description = "1. upload an unclassified csv data file";
 }
 void Upload::execute(Configuration *config) {
+    string train_path = dio->read();
     dio->write("Please upload your local train CSV file.");
     string train_vectors;
     while (true) {

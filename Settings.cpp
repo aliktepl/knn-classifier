@@ -10,6 +10,7 @@ Settings::Settings(DefaultIO *dio) : Command(dio) {
     this->description = "2. algorithm settings";
 }
 
+
 void Settings::execute(Configuration *config) {
     dio->write("The current KKN parameters are: K = " +
                 to_string(config->getK()) + ", distance metric = " + config->getMetric());

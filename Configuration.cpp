@@ -11,6 +11,10 @@ Configuration::Configuration() {
     this->metric = "AUC";
 }
 
+Configuration::~Configuration() {
+
+}
+
 string Configuration::getTrainPath() {
     return this->trainPath;
 }

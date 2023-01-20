@@ -8,6 +8,7 @@ Download::Download(DefaultIO *dio) : Command(dio) {
     this->description = "5. download results";
 }
 
+
 void Download::execute(Configuration *config) {
     if (!config->getExecutes()[0]){
         dio->write("please upload data");

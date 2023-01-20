@@ -7,10 +7,11 @@
 
 #include "DefaultIO.h"
 
-class StandardIO : DefaultIO {
+class StandardIO : public DefaultIO {
+public:
     string read() override;
     void write(string data) override;
-
+    StandardIO();
 };
 
 
