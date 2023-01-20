@@ -7,6 +7,6 @@ Exit::Exit(DefaultIO *dio) : Command(dio){
     this->description = "8. exit";
 }
 
-void Exit::execute(Configuration* config) {
-    cout << "Executing exit..." <<endl;
+void Exit::execute(Configuration *config) {
+
 }

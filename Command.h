@@ -17,7 +17,7 @@ protected:
     string description;
     DefaultIO *dio;
 public:
-    Command(DefaultIO *dio);
+    explicit Command(DefaultIO *dio);
     string getDescription();
     virtual void execute(Configuration *config) = 0;
 };

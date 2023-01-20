@@ -20,16 +20,21 @@ using namespace std;
 class FileReader {
 private:
     char *path;
-    vector<Classified> classifiedVector;
+    vector<Classified> train_vector;
+    vector<vector<double>> test_vector;
     unsigned long long size = 0;
 public:
     explicit FileReader(char *path);
 
     ~FileReader();
 
-    bool feedVector();
+    bool feedTrainVector();
 
-    vector<Classified> getVector();
+    bool feedTestVector();
+
+    vector<Classified> getTrainVector();
+
+    vector<vector<double>> getTestVector();
 
     unsigned long long getSize() const;
 };

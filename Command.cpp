@@ -7,7 +7,6 @@
 Command::Command(DefaultIO *dio) {
     this->dio = dio;
 }
-
 string Command::getDescription() {
     return this->description;
 }
