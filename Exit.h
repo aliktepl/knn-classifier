@@ -10,7 +10,7 @@
 class Exit : public Command{
 public:
     explicit Exit(DefaultIO *dio);
-    void execute() override;
+    void execute(Configuration *config) override;
 };
 
 

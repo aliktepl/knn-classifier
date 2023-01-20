@@ -9,6 +9,7 @@
  * @param dio is the default io
  */
 CLI::CLI(DefaultIO *dio){
+    this->dio = dio;
     Upload upload = Upload(getDio());
     this->commands.push_back(&upload);
     Settings settings = Settings(getDio());

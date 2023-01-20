@@ -23,7 +23,7 @@ FileReader::~FileReader() = default;
  * and push it to the vector 'FileReader' holds.
  * @return bool, true if the feeding was successful otherwise false
  */
-bool FileReader::feedVector() {
+bool FileReader::feedTrainVector() {
     Parser p;
     ifstream inputFile;
     inputFile.open(this->path);
@@ -45,7 +45,7 @@ bool FileReader::feedVector() {
                 break;
             }
             /**
-             * check each character in 'word' for digit, 'E', ',' and '-'
+             * check each character in 'word' for digit, 'E', '.' and '-'
              * if one of these characters appear then the 'word' is valid.
              */
             for (int i = 0; i < strlen(word.c_str()); i++) {
@@ -77,8 +77,8 @@ bool FileReader::feedVector() {
                 v.push_back(stod(word));
             }
         }
-        this->classifiedVector.emplace_back(v, word);
-        Classified lastClassified = *(classifiedVector.end() - 1);
+        this->train_vector.emplace_back(v, word);
+        Classified lastClassified = *(train_vector.end() - 1);
         // check for vector length equality between all vectors read
         if (this->size == 0) {
             this->size = lastClassified.getVector().size();
@@ -91,12 +91,64 @@ bool FileReader::feedVector() {
     return true;
 }
 
+bool FileReader::feedTestVector() {
+    Parser p;
+    ifstream inputFile;
+    inputFile.open(this->path);
+    // try to open file with stream
+    if (!inputFile.is_open()) {
+        cout << "Cannot open file path" << endl;
+        return false;
+    }
+    string line;
+    while (getline(inputFile, line)) {
+        vector<double> v;
+        stringstream ss(line);
+        string word;
+        // parse row with stream for every ',' delimiter in row
+        while (getline(ss, word, ',')) {
+            // check for end of file
+            if (ss.eof()) {
+                break;
+            }
+            for (int i = 0; i < strlen(word.c_str()); i++) {
+                if (!isdigit(word[i]) && word.c_str()[i] != 'E' &&
+                    word.c_str()[i] != '.' && word.c_str()[i] != '-') {
+                    cout << "One of the vectors contains an invalid value" << endl;
+                    return false;
+                }
+            }
+            p.setDelim('E');
+            p.setToParse(word);
+            int c1 = p.checkParse();
+            p.setDelim('-');
+            int c2 = p.checkParse();
+            p.setDelim('.');
+            int c3 = p.checkParse();
+            if (c1 == 1 && (c2 == 0 || c2 == 1 || c2 == 2) && (c3 == 0 || c3 == 1)) {
+                v.push_back(p.parse());
+            } else if (c1 > 1 || c2 > 2 || c3 > 1) {
+                cout << "One of the vectors contains an invalid value" << endl;
+                return false;
+            } else {
+                v.push_back(stod(word));
+            }
+        }
+        this->train_vector.emplace_back(v, word);
+    }
+    return true;
+}
+
 /**
  * Get a vector of classified vectors
  * @return vector of Classified objects
  */
-vector<Classified> FileReader::getVector() {
-    return this->classifiedVector;
+vector<Classified> FileReader::getTrainVector() {
+    return this->train_vector;
+}
+
+vector<vector<double>> FileReader::getTestVector() {
+    return this->test_vector;
 }
 
 /**
@@ -106,3 +158,5 @@ vector<Classified> FileReader::getVector() {
 unsigned long long FileReader::getSize() const {
     return this->size;
 }
+
+

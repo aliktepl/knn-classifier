@@ -10,7 +10,7 @@
 class Classify: public Command {
 public:
     explicit Classify(DefaultIO *dio);
-    void execute() override;
+    void execute(Configuration *config) override;
 };
 
 

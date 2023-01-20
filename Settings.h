@@ -10,7 +10,7 @@
 class Settings: public Command {
 public:
     explicit Settings(DefaultIO *dio);
-    void execute() override;
+    void execute(Configuration *config) override;
 };
 
 
