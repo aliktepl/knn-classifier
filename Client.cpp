@@ -9,7 +9,8 @@
 #include <unistd.h>
 #include <cstring>
 #include "ClientInit.h"
-#include "StringValidation.h"
+#include "Utilities.h"
+#include "thread"
 
 using namespace std;
 
@@ -52,45 +53,122 @@ int main(int argc, char **argv) {
      */
     string str;
     while (true) {
-        getline(cin, str);
-        int data_len = str.length();
-        if (str != "-1") {
-            // initialise vector,distance,k from user input and check their validity
-            StringValidation stringValidation(str);
-            if (!stringValidation.checkValidation()) {
-                cout << "Invalid input" << endl;
-                continue;
-            }
-        }
-        // send message -> [vector, distance, k]
-        int sent_bytes = send(sock, str.c_str(), data_len, 0);
-        // if message is "-1" then close socket for client
-        if (str == "-1") {
-            close(sock);
-            return 0;
-        }
-        if (sent_bytes < 0) {
-            close(sock);
-            break;
-            // error
-        }
-        // receive message -> classification
+        // receive message
         char buffer[4096];
         int expected_data_len = sizeof(buffer);
         int read_bytes = recv(sock, buffer, expected_data_len, 0);
-        // if message -> "-1" then close socket
-        if (read_bytes == 1 && buffer[0] == -1) {
-            close(sock);
-            // connection is closed
-        } else if (read_bytes < 0) {
+        if (read_bytes < 0) {
             close(sock);
             // error
-        } else {
-            cout << buffer << endl;
+        }
+        getline(cin, str);
+        unsigned long data_len = str.length();
+        int sent_bytes;
+        string path, bufferStr;
+        thread t;
+        switch (stoi(str)) {
+            case 1:
+                // sends "1" to server to execute upload
+                sent_bytes = send(sock, str.c_str(), data_len, 0);
+                if (sent_bytes < 0) {
+                    close(sock);
+                    break;
+                    // error
+                }
+                for(int i = 0; i < 2; i++){
+                    // receives request to upload csv file
+                    read_bytes = recv(sock, buffer, expected_data_len, 0);
+                    if (read_bytes < 0) {
+                        close(sock);
+                        // error
+                    }
+                    cout << buffer << endl;
+                    // read data from file and upload to server
+                    cin >> path;
+                    str = readFile(path);
+                    data_len = str.length();
+                    sent_bytes = send(sock, str.c_str(), data_len, 0);
+                    if (sent_bytes < 0) {
+                        close(sock);
+                        break;
+                        // error
+                    }
+                    // receives "Upload complete message"
+                    read_bytes = recv(sock, buffer, expected_data_len, 0);
+                    if (read_bytes < 0) {
+                        close(sock);
+                        // error
+                    }
+                }
+                break;
+
+            case 2:
+                // send option "2" to server
+                sent_bytes = send(sock, str.c_str(), data_len, 0);
+                if (sent_bytes < 0) {
+                    close(sock);
+                    break;
+                    // error
+                }
+                // receive current configuration of K and metric
+                read_bytes = recv(sock, buffer, expected_data_len, 0);
+                if (read_bytes < 0) {
+                    close(sock);
+                    // error
+                }
+                // send new configuration
+                cin >> str;
+                sent_bytes = send(sock, str.c_str(), data_len, 0);
+                if (sent_bytes < 0) {
+                    close(sock);
+                    break;
+                    // error
+                }
+                break;
+
+            case 5:
+                // send option "5" to server
+                sent_bytes = send(sock, str.c_str(), data_len, 0);
+                if (sent_bytes < 0) {
+                    close(sock);
+                    break;
+                    // error
+                }
+                // receive current configuration of K and metric
+                read_bytes = recv(sock, buffer, expected_data_len, 0);
+                if (read_bytes < 0) {
+                    close(sock);
+                    // error
+                }
+                bufferStr = string(buffer, strlen(buffer));
+                cin >> path;
+                t = thread(writeFile, bufferStr, path);
+                t.detach();
+                break;
+
+            case 8:
+                // if message is "8" then close socket for current client
+                close(sock);
+                return 0;
+
+            default:
+                // send option x from menu
+                sent_bytes = send(sock, str.c_str(), data_len, 0);
+                if (sent_bytes < 0) {
+                    close(sock);
+                    break;
+                    // error
+                }
+                // receive operation x execution output from server
+                read_bytes = recv(sock, buffer, expected_data_len, 0);
+                if (read_bytes < 0) {
+                    close(sock);
+                    // error
+                }
+                break;
+
         }
         // clearing the buffer for next message
         memset(buffer, 0, sizeof(buffer));
-    }
-    close(sock);
-    return 0;
+        }
 }
