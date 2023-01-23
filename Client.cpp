@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
      */
     string str;
     while (true) {
-        // receive message
+        // receive menu
         char buffer[4096];
         int expected_data_len = sizeof(buffer);
         int read_bytes = recv(sock, buffer, expected_data_len, 0);
@@ -61,6 +61,8 @@ int main(int argc, char **argv) {
             close(sock);
             // error
         }
+        string menu(buffer, std::strlen(buffer));
+        cout << menu;
         getline(cin, str);
         unsigned long data_len = str.length();
         int sent_bytes;
@@ -148,6 +150,12 @@ int main(int argc, char **argv) {
 
             case 8:
                 // if message is "8" then close socket for current client
+                sent_bytes = send(sock, str.c_str(), data_len, 0);
+                if (sent_bytes < 0) {
+                    close(sock);
+                    break;
+                    // error
+                }
                 close(sock);
                 return 0;
 
