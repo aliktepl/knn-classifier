@@ -7,9 +7,10 @@
 
 #include "Command.h"
 
-class Settings: public Command {
+class Settings : public Command {
 public:
     explicit Settings(DefaultIO *dio);
+
     void execute(Configuration *config) override;
 };
 

@@ -18,10 +18,11 @@ protected:
     DefaultIO *dio;
 public:
     explicit Command(DefaultIO *dio);
+
     string getDescription();
+
     virtual void execute(Configuration *config) = 0;
 };
-
 
 
 #endif //AX1_EX4_COMMAND_H

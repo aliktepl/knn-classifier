@@ -8,9 +8,10 @@
 #include "Command.h"
 
 
-class Download: public Command {
+class Download : public Command {
 public:
     explicit Download(DefaultIO *dio);
+
     void execute(Configuration *config) override;
 };
 

@@ -7,9 +7,10 @@
 
 #include "Command.h"
 
-class Classify: public Command {
+class Classify : public Command {
 public:
     explicit Classify(DefaultIO *dio);
+
     void execute(Configuration *config) override;
 };
 

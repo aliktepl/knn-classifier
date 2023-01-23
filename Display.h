@@ -7,10 +7,11 @@
 
 #include "Command.h"
 
-class Display: public Command {
+class Display : public Command {
 public:
-   explicit Display(DefaultIO *dio);
-   void execute(Configuration *config) override;
+    explicit Display(DefaultIO *dio);
+
+    void execute(Configuration *config) override;
 };
 
 

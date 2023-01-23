@@ -23,3 +23,7 @@ void SocketIO::write(string data) {
         return;
     }
 }
+
+void SocketIO::exit() const {
+    close(this->client_sock);
+}

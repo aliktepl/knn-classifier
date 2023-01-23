@@ -61,9 +61,9 @@ int main(int argc, char **argv) {
         StandardIO stdio = StandardIO();
         CLI clientCLI(&stdio);
         bool closeConnection = false;
-        bool* ptrCloseConnection = &closeConnection;
-        thread t([&]{ clientCLI.start(client_sock, ptrCloseConnection);});
-        if(*(ptrCloseConnection)){
+        bool *ptrCloseConnection = &closeConnection;
+        thread t([&] { clientCLI.start(client_sock, ptrCloseConnection); });
+        if (*(ptrCloseConnection)) {
             close(sock);
             t.join();
         }

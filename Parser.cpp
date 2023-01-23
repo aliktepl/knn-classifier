@@ -58,6 +58,7 @@ int Parser::checkParse() {
     }
     return parserCount;
 }
+
 /**
  * parse string by delimiter and return exponent calculation
  * @return double exponent calculation
@@ -74,6 +75,7 @@ double Parser::parse() {
     double base = strtod(tokens[0].c_str(), &end);
     return base * exponent;
 }
+
 /**
  * Default constructor for parser
  */

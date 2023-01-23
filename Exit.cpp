@@ -3,10 +3,11 @@
 //
 
 #include "Exit.h"
-Exit::Exit(DefaultIO *dio) : Command(dio){
+
+Exit::Exit(DefaultIO *dio) : Command(dio) {
     this->description = "8. exit";
 }
 
 void Exit::execute(Configuration *config) {
-
+    dio->exit();
 }

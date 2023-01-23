@@ -13,13 +13,17 @@
 #include <unistd.h>
 #include <cstring>
 
-class SocketIO: public DefaultIO{
+class SocketIO : public DefaultIO {
 private:
     int client_sock;
 public:
     explicit SocketIO(int client_sock);
+
     string read() override;
+
     void write(string data) override;
+
+    void exit() const;
 };
 
 
