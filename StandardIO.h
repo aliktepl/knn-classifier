@@ -11,7 +11,7 @@ class StandardIO : public DefaultIO {
 public:
     string read() override;
     void write(string data) override;
-    void exit() override;
+    void exit() const override;
     StandardIO();
 };
 

@@ -17,7 +17,7 @@ void StandardIO::write(string output) {
     cout << output << endl;
 }
 
-void StandardIO::exit() {
+void StandardIO::exit() const {
 
 }
 
