@@ -17,4 +17,8 @@ void StandardIO::write(string output) {
     cout << output << endl;
 }
 
+void StandardIO::exit() {
+
+}
+
 StandardIO::StandardIO() = default;
