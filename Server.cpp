@@ -63,6 +63,7 @@ int main(int argc, char **argv) {
         bool closeConnection = false;
         bool* ptrCloseConnection = &closeConnection;
         thread t([&]{ clientCLI.start(client_sock, ptrCloseConnection);});
+        t.detach();
         if(*(ptrCloseConnection)){
             close(sock);
             t.join();
