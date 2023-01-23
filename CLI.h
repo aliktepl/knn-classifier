@@ -4,6 +4,7 @@
 
 #ifndef AX1_EX4_CLI_H
 #define AX1_EX4_CLI_H
+
 #include "DefaultIO.h"
 #include "Command.h"
 #include "Upload.h"
@@ -21,12 +22,15 @@ using namespace std;
 class CLI {
 private:
     DefaultIO *dio;
-    vector<Command*> commands = {};
+    vector<Command *> commands = {};
 public:
     CLI(DefaultIO *dio);
-    void start(int id, bool* closeConnection);
-    vector<Command*> getCommands();
-    DefaultIO* getDio();
+
+    void start(int id, bool *closeConnection);
+
+    vector<Command *> getCommands();
+
+    DefaultIO *getDio();
 };
 
 

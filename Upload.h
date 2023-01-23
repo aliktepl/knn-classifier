@@ -7,11 +7,11 @@
 
 #include "Command.h"
 
-class Upload: public Command {
+class Upload : public Command {
 public:
     explicit Upload(DefaultIO *dio);
+
     void execute(Configuration *config) override;
-    vector<Classified> createClassifiedVector(const string& train_vectors);
 };
 
 

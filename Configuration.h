@@ -11,8 +11,6 @@ using namespace std;
 
 class Configuration {
 private:
-    string trainPath;
-    string testPath;
     string metric;
     int k;
     vector<Classified> trainVectors;
@@ -22,16 +20,12 @@ private:
 public:
     Configuration();
     ~Configuration();
-    string getTrainPath();
-    string getTestPath();
     string getMetric();
     int getK() const;
     vector<Classified> getTrainVectors();
     vector<vector<double>> getTestVectors();
     void setTrainVectors(vector<Classified> vector);
     void setTestVectors(vector<vector<double>> vector);
-    void setTrainPath(string path);
-    void setTestPath(string path);
     void setMetric(string metric);
     void setK(int k);
     void setExecute(bool option, int index);

@@ -18,12 +18,30 @@ void Settings::execute(Configuration *config) {
     string settings_input = dio->read();
     stringstream ss(settings_input);
     string word;
+    string error;
+    int k;
+    string metric;
     while (ss >> word) {
         if (isInt(word)) {
-            config->setK(stoi(word));
+            //TODO - implement check k param
+            if(!checkKParam()) {
+                error.append("Invalid value for K\n");
+            } else {
+                k = (stoi(word));
+            }
         } else {
-            config->setMetric(word);
+            if(checkMetric(word)) {
+                error.append("Invalid value for metric\n");
+            } else {
+                metric = word;
+            }
         }
     }
-    config->setExecute(true, 1);
+    if (error.empty()) {
+        config->setK(k);
+        config->setMetric(metric);
+        config->setExecute(true, 1);
+    } else {
+        dio->write(error);
+    }
 }

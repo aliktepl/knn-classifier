@@ -16,8 +16,10 @@ void Download::execute(Configuration *config) {
     else if(!config->getExecutes()[2]) {
         dio->write("please classify the data");
     }
+    string results;
     for (int i = 0; i < config->getClassifications().size(); i++) {
-        dio->write(to_string(i) + "    " + config->getClassifications()[i]);
+        results.append(to_string(i) + "    " + config->getClassifications()[i] + '\n');
     }
+    dio->write(results);
 }
 

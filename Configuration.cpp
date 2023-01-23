@@ -11,28 +11,10 @@ Configuration::Configuration() {
     this->metric = "AUC";
 }
 
-Configuration::~Configuration() {
-
-}
-
-string Configuration::getTrainPath() {
-    return this->trainPath;
-}
-
-string Configuration::getTestPath() {
-    return this->testPath;
-}
+Configuration::~Configuration() = default;
 
 int Configuration::getK() const {
     return this->k;
-}
-
-void Configuration::setTrainPath(string path) {
-    this->trainPath = std::move(path);
-}
-
-void Configuration::setTestPath(string path) {
-    this->testPath = std::move(path);
 }
 
 void Configuration::setMetric(string dist) {
