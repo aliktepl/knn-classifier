@@ -2,19 +2,18 @@
 // Created by royva on 05/12/2022.
 //
 
-#include "FileReader.h"
 #include "kNearestNeighbors.h"
-#include "StringValidation.h"
 #include "ServerInit.h"
 #include "CLI.h"
-#include "StandardIO.h"
+#include "SocketIO.h"
+#include "ThreadWrapper.h"
 #include <iostream>
 #include <sys/socket.h>
 #include <cstdio>
 #include <netinet/in.h>
 #include <unistd.h>
 #include <cstring>
-#include "thread"
+#include <thread>
 
 using namespace std;
 
@@ -58,11 +57,11 @@ int main(int argc, char **argv) {
         if (client_sock < 0) {
             perror("error accepting client");
         }
-        StandardIO stdio = StandardIO();
-        CLI clientCLI(&stdio);
+//        SocketIO stdio = SocketIO(client_sock);
+//        CLI clientCLI(&stdio);
         bool closeConnection = false;
         bool* ptrCloseConnection = &closeConnection;
-        thread t([&]{ clientCLI.start(client_sock, ptrCloseConnection);});
+        thread t(executeThread, client_sock, ptrCloseConnection);
         t.detach();
         if(*(ptrCloseConnection)){
             close(sock);
