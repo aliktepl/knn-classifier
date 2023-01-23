@@ -91,3 +91,30 @@ bool checkClassifiedVec(const string& elements){
         return false;
     }
 }
+/**
+ * Reads all data from file and returns it as a string
+ * @param path is the file path to read from
+ * @return is the string to return
+ */
+string readFile(string path){
+    ifstream inputFile;
+    inputFile.open(path);
+    // try to open file with stream
+    if (!inputFile.is_open()) {
+        return "invalid input";
+    }
+    string line, output;
+    while(getline(inputFile, line)){
+        output.append(line);
+    }
+    return output;
+}
+/**
+ * Writes to data to file and saves to a certain path
+ * @param path
+ */
+void writeFile(string toWrite, string path){
+    ofstream file(path);
+    file << toWrite;
+    file.close();
+}
