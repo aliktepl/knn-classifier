@@ -6,6 +6,8 @@
 #define AX1_EX4_SETTINGS_H
 
 #include "Command.h"
+#include "sstream"
+#include "Utilities.h"
 
 class Settings : public Command {
 public:

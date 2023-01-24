@@ -4,8 +4,6 @@
 
 #include "kNearestNeighbors.h"
 #include "ServerInit.h"
-#include "CLI.h"
-#include "SocketIO.h"
 #include "ThreadWrapper.h"
 #include <iostream>
 #include <sys/socket.h>
@@ -57,8 +55,6 @@ int main(int argc, char **argv) {
         if (client_sock < 0) {
             perror("error accepting client");
         }
-//        SocketIO stdio = SocketIO(client_sock);
-//        CLI clientCLI(&stdio);
         bool closeConnection = false;
         bool* ptrCloseConnection = &closeConnection;
         thread t(executeThread, client_sock, ptrCloseConnection);

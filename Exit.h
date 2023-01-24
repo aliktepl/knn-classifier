@@ -13,7 +13,6 @@ using namespace std;
 class Exit : public Command {
 public:
     explicit Exit(DefaultIO *dio);
-
     void execute(Configuration *config) override;
 };
 
