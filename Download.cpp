@@ -12,13 +12,15 @@ Download::Download(DefaultIO *dio) : Command(dio) {
 void Download::execute(Configuration *config) {
     if (!config->getExecutes()[0]){
         dio->write("please upload data");
+        return;
     }
     else if(!config->getExecutes()[2]) {
         dio->write("please classify the data");
+        return;
     }
     string results;
-    for (int i = 0; i < config->getClassifications().size(); i++) {
-        results.append(to_string(i) + "    " + config->getClassifications()[i] + '\n');
+    for (long unsigned int i = 0; i < config->getClassifications().size(); i++) {
+        results.append(to_string(i+1) + "    " + config->getClassifications()[i] + '\n');
     }
     dio->write(results);
 }

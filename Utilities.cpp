@@ -21,7 +21,7 @@ bool isNumeric(string str) {
     int pointCount = 0, iterCount = 0, length = str.length();
 
     for (auto c: str) {
-        if (c == '.' && pointCount == 0 && 0 < iterCount < length - 1) {
+        if (c == '.' && pointCount == 0 && 0 < iterCount && iterCount < length - 1) {
             pointCount++;
         } else if (!isdigit(c)) {
             return false;
@@ -124,6 +124,24 @@ string readFile(string path){
  */
 void writeFile(string toWrite, string path){
     ofstream file(path);
+    if (!file.is_open()) {
+        return;
+    }
     file << toWrite;
     file.close();
+}
+
+bool checkVectors(vector<Classified> train, vector<vector<double>> test) {
+    unsigned long size = train[0].getVector().size();
+    for (Classified vector: train) {
+        if (vector.getVector().size() != size) {
+            return false;
+        }
+    }
+    for (const vector<double> &vector: test) {
+        if (vector.size() != size) {
+            return false;
+        }
+    }
+    return true;
 }

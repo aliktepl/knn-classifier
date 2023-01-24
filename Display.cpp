@@ -18,8 +18,8 @@ void Display::execute(Configuration *config) {
         return;
     }
     string results;
-    for (int i = 0; i < config->getClassifications().size(); i++) {
-        results.append(to_string(i) + "    " + config->getClassifications()[i]+'\n');
+    for (unsigned long i = 0; i < config->getClassifications().size(); i++) {
+        results.append(to_string(i+1) + "    " + config->getClassifications()[i]+'\n');
     }
     results.append("Done");
     dio->write(results);

@@ -4,21 +4,24 @@
 
 #include "Upload.h"
 #include "Utilities.h"
+#include <thread>
+#include <chrono>
 
 Upload::Upload(DefaultIO *dio) : Command(dio) {
     this->description = "1. upload an unclassified csv data file";
 }
+
 void Upload::execute(Configuration *config) {
     vector<Classified> backup_vec = config->getTrainVectors();
     dio->write("Please upload your local train CSV file.");
     string train_vectors;
     while (true) {
         string current_vector = dio->read();
-        if(current_vector == "ret"){
+        if (current_vector == "ret") {
             return;
         }
         train_vectors += current_vector;
-        if (current_vector.size() < 4096){
+        if (current_vector.size() < 4096) {
             break;
         }
     }
@@ -45,7 +48,7 @@ void Upload::execute(Configuration *config) {
     string test_vectors;
     while (true) {
         string current_vector = dio->read();
-        if(current_vector == "ret"){
+        if (current_vector == "ret") {
             config->setTrainVectors(backup_vec);
             return;
         }
@@ -61,12 +64,15 @@ void Upload::execute(Configuration *config) {
         string number;
         vector<double> vector;
         while (getline(vector_stream, number, ',')) {
-            if(isNumeric(number)){
+            if (isNumeric(number)) {
                 vector.push_back(stod(number));
-                //TODO: what if there is a string in the train .csv file
             }
         }
         unclassified.push_back(vector);
+    }
+    if (!checkVectors(classified, unclassified)) {
+        dio->write("Vectors are invalid, please upload again.");
+        return;
     }
     config->setTrainVectors(classified);
     config->setTestVectors(unclassified);
