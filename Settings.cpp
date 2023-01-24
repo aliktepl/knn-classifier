@@ -14,32 +14,58 @@ void Settings::execute(Configuration *config) {
                 to_string(config->getK()) + ", distance metric = " + config->getMetric());
     // K Metric
     string settings_input = dio->read();
+    if(settings_input == "\n"){
+        dio->write("ret");
+        return;
+    }
     stringstream ss(settings_input);
-    string word;
-    string error;
-    int k;
-    string metric;
-    while (ss >> word) {
+    string word, error, metric;
+    int k = 0;
+    while (getline(ss, word, ' ')) {
         if (isInt(word)) {
-            if (0 < stoi(word) && config->getTrainVectors().size() <= k) {
-                k = (stoi(word));
+            int num = stoi(word);
+            if (0 < num && num <= config->getTrainVectors().size()) {
+                k = num;
             } else {
-                error.append("Invalid value for K\n");
+                if(error.empty()){
+                    error.append("Invalid value for K");
+                } else {
+                    error.append("\nInvalid value for K");
+                }
             }
         }
         else {
             if(!checkMetric(word)) {
-                error.append("Invalid value for metric\n");
+                if(error.empty()){
+                    error.append("Invalid value for metric");
+                } else {
+                    error.append("\nInvalid value for metric");
+                }
             } else {
                 metric = word;
             }
         }
     }
-    if (error.empty()) {
+    if (error.empty() && !(k == 0 && metric.empty())) {
         config->setK(k);
         config->setMetric(metric);
         config->setExecute(true, 1);
+        dio->write("ret");
     } else {
+//        if(k == 0){
+//            if(error.empty()){
+//                error.append("Invalid value for K");
+//            } else {
+//                error.append("\nInvalid value for K");
+//            }
+//        }
+//        if(metric.empty()){
+//            if(error.empty()){
+//                error.append("Invalid value for metric");
+//            } else {
+//                error.append("\nInvalid value for metric");
+//            }
+//        }
         dio->write(error);
     }
 }
