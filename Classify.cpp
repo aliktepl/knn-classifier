@@ -23,6 +23,6 @@ void Classify::execute(Configuration *config) {
         classifications.push_back(cat);
     }
     config->setClassifications(classifications);
-    config->setExecute(true, 3);
+    config->setExecute(true, 2);
     dio->write("classifying data complete.");
 }

@@ -11,9 +11,11 @@ Display::Display(DefaultIO *dio) : Command(dio) {
 void Display::execute(Configuration *config) {
     if (!config->getExecutes()[0]){
         dio->write("please upload data");
+        return;
     }
     else if(!config->getExecutes()[2]) {
         dio->write("please classify the data");
+        return;
     }
     string results;
     for (int i = 0; i < config->getClassifications().size(); i++) {

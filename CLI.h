@@ -24,7 +24,7 @@ private:
     DefaultIO *dio;
     vector<Command *> commands = {};
 public:
-    CLI(DefaultIO *dio);
+    explicit CLI(DefaultIO *dio);
 
     void start(int id, bool *closeConnection);
 
