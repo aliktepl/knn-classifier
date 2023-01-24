@@ -3,6 +3,8 @@
 //
 
 #include "CLI.h"
+#include <chrono>
+#include <thread>
 
 /**
  * Constructor takes default io and fills command vectors with current commands.

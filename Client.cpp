@@ -189,6 +189,10 @@ int main(int argc, char **argv) {
                         // error
                     }
                     bufferStr = string(buffer, strlen(buffer));
+                    if (bufferStr == "please upload data" || bufferStr == "please classify the data") {
+                        cout << bufferStr << endl;
+                        break;
+                    }
                     cin >> path;
                     t = thread(writeFile, bufferStr, path);
                     t.detach();

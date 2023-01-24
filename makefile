@@ -1,5 +1,5 @@
 CC := g++
-CFLAGS := -std=c++11
+CFLAGS := -pthread -std=c++11
 
 SOURCES := $(wildcard *.cpp)
 OBJECTS := $(patsubst %.cpp, %.o, $(SOURCES))

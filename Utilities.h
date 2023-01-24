@@ -18,5 +18,6 @@ bool checkMetric(const string& type);
 bool checkClassifiedVec(const string& elements);;
 string readFile(string path);
 void writeFile(string toWrite, string path);
+bool checkVectors(vector<Classified> train, vector<vector<double>> test);
 
 #endif //AX1_EX4_UTILITIES_H
