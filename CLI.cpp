@@ -46,6 +46,7 @@ void CLI::start(int id, bool *closeConnection) {
     string option;
     Configuration config = Configuration();
     while (true) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
         getDio()->write(menu);
         option = getDio()->read();
         if (!isInt(option)) {

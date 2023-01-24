@@ -133,12 +133,15 @@ int main(int argc, char **argv) {
                         break;
                         // error
                     }
+                    memset(buffer, 0, sizeof(buffer));
                     // receive current configuration of K and metric
                     read_bytes = recv(sock, buffer, expected_data_len, 0);
                     if (read_bytes < 0) {
                         close(sock);
                         // error
                     }
+                    bufferStr = string(buffer, strlen(buffer));
+                    cout << bufferStr << endl;
                     // send new configuration
                     cin >> str;
                     sent_bytes = send(sock, str.c_str(), data_len, 0);
@@ -157,7 +160,8 @@ int main(int argc, char **argv) {
                         break;
                         // error
                     }
-                    // receive current configuration of K and metric
+                    memset(buffer, 0, sizeof(buffer));
+                    // receive classifications
                     read_bytes = recv(sock, buffer, expected_data_len, 0);
                     if (read_bytes < 0) {
                         close(sock);
@@ -182,19 +186,22 @@ int main(int argc, char **argv) {
 
                 case 3:
                 case 4:
-                    // send option x from menu
+                    // send option 4 from menu
                     sent_bytes = send(sock, str.c_str(), data_len, 0);
                     if (sent_bytes < 0) {
                         close(sock);
                         break;
                         // error
                     }
-                    // receive operation x execution output from server
+                    memset(buffer, 0, sizeof(buffer));
+                    // receive operation 4 execution output from server
                     read_bytes = recv(sock, buffer, expected_data_len, 0);
                     if (read_bytes < 0) {
                         close(sock);
                         // error
                     }
+                    bufferStr = string(buffer, strlen(buffer));
+                    cout << bufferStr << endl;
                     break;
 
                 default:

@@ -2,9 +2,7 @@
 // Created by alik on 1/18/23.
 //
 
-
 #include "Upload.h"
-#include "FileReader.h"
 #include "Utilities.h"
 
 Upload::Upload(DefaultIO *dio) : Command(dio) {
@@ -42,6 +40,7 @@ void Upload::execute(Configuration *config) {
         }
     }
     dio->write("Upload Complete.");
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
     dio->write("Please upload your local test CSV file.");
     string test_vectors;
     while (true) {
