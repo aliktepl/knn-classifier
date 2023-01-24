@@ -12,10 +12,10 @@
 
 using namespace std;
 bool isInt(string str);
+bool isNumeric(string str);
 bool isContained(vector<int> numVector, int num);
 bool checkMetric(const string& type);
-bool checkClassifiedVec(const string& elements);
-bool checkKParam();
+bool checkClassifiedVec(const string& elements);;
 string readFile(string path);
 void writeFile(string toWrite, string path);
 

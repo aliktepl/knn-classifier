@@ -43,25 +43,24 @@ void CLI::start(int id, bool *closeConnection) {
         menu.append(command->getDescription());
         menu.append("\n");
     }
-    getDio()->write(menu);
     string option;
     Configuration config = Configuration();
     while (true) {
+        getDio()->write(menu);
         option = getDio()->read();
         if (!isInt(option)) {
-            dio->write("Invalid option!\n");
             continue;
         }
         int optionNum = stoi(option);
         vector<int> validOptions = {1, 2, 3, 4, 5, 8};
         if (!isContained(validOptions, optionNum)) {
-            dio->write("Invalid option!\n");
             continue;
         }
         if (optionNum == 8) {
             getCommands().at(optionNum - 3)->execute(&config);
             break;
         }
-        getCommands().at(optionNum - 1)->execute(&config);
+        Command* currCommand = getCommands().at(optionNum - 1);
+        currCommand->execute(&config);
     }
 }

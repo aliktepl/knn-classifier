@@ -3,8 +3,6 @@
 //
 
 #include "Settings.h"
-#include "sstream"
-#include "Utilities.h"
 
 Settings::Settings(DefaultIO *dio) : Command(dio) {
     this->description = "2. algorithm settings";
@@ -23,14 +21,14 @@ void Settings::execute(Configuration *config) {
     string metric;
     while (ss >> word) {
         if (isInt(word)) {
-            //TODO - implement check k param
-            if(!checkKParam()) {
-                error.append("Invalid value for K\n");
-            } else {
+            if (0 < stoi(word) && config->getTrainVectors().size() <= k) {
                 k = (stoi(word));
+            } else {
+                error.append("Invalid value for K\n");
             }
-        } else {
-            if(checkMetric(word)) {
+        }
+        else {
+            if(!checkMetric(word)) {
                 error.append("Invalid value for metric\n");
             } else {
                 metric = word;

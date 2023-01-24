@@ -17,19 +17,20 @@ bool isInt(string str) {
     return true;
 }
 
-//bool isNumeric(string str) {
-//    int pointCount = 0, iterCount = 0, length = str.length();
-//
-//    for (auto c: str) {
-//        if (c == '.' && pointCount == 0 && 0 < iterCount < length - 1) {
-//            pointCount++;
-//        } else if (!isdigit(c)) {
-//            return false;
-//        }
-//        iterCount++;
-//    }
-//    return true;
-//}
+bool isNumeric(string str) {
+    int pointCount = 0, iterCount = 0, length = str.length();
+
+    for (auto c: str) {
+        if (c == '.' && pointCount == 0 && 0 < iterCount < length - 1) {
+            pointCount++;
+        } else if (!isdigit(c)) {
+            return false;
+        }
+        iterCount++;
+    }
+    return true;
+}
+
 /**
  * Checks if a number is contained in a vector.
  * @param numVector is the vector
@@ -91,6 +92,7 @@ bool checkClassifiedVec(const string& elements){
         return false;
     }
 }
+
 /**
  * Reads all data from file and returns it as a string
  * @param path is the file path to read from
@@ -105,7 +107,14 @@ string readFile(string path){
     }
     string line, output;
     while(getline(inputFile, line)){
-        output.append(line);
+        if(!line.empty() && line.back() == '\r'){
+            line.pop_back();
+            output.append(line);
+            output.append("\n");
+        } else {
+            output.append(line);
+            output.append("\n");
+        }
     }
     return output;
 }

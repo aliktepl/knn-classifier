@@ -2,6 +2,7 @@
 // Created by alik on 1/18/23.
 //
 
+
 #include "Upload.h"
 #include "FileReader.h"
 #include "Utilities.h"
@@ -10,11 +11,14 @@ Upload::Upload(DefaultIO *dio) : Command(dio) {
     this->description = "1. upload an unclassified csv data file";
 }
 void Upload::execute(Configuration *config) {
-    string train_path = dio->read();
+    vector<Classified> backup_vec = config->getTrainVectors();
     dio->write("Please upload your local train CSV file.");
     string train_vectors;
     while (true) {
         string current_vector = dio->read();
+        if(current_vector == "ret"){
+            return;
+        }
         train_vectors += current_vector;
         if (current_vector.size() < 4096){
             break;
@@ -23,27 +27,18 @@ void Upload::execute(Configuration *config) {
     vector<Classified> classified;
     stringstream ss_train(train_vectors);
     string line;
-    while (getline(ss_train, line, '\n')) {
+    while (getline(ss_train, line)) {
         if (checkClassifiedVec(line)) {
             stringstream vector_stream(line);
             string number;
             vector<double> vector;
-            bool num_flag = false;
-            while (vector_stream >> number) {
-                if (!isInt(number)) {
-                    num_flag = true;
+            while (getline(vector_stream, number, ',')) {
+                if (!isNumeric(number)) {
+                    classified.emplace_back(vector, number);
                     break;
                 }
                 vector.push_back(stod(number));
             }
-            string cat;
-            if (num_flag) {
-                vector_stream >> cat;
-            } else {
-                vector.pop_back();
-                vector_stream >> cat;
-            }
-            classified.emplace_back(vector, cat);
         }
     }
     dio->write("Upload Complete.");
@@ -51,6 +46,10 @@ void Upload::execute(Configuration *config) {
     string test_vectors;
     while (true) {
         string current_vector = dio->read();
+        if(current_vector == "ret"){
+            config->setTrainVectors(backup_vec);
+            return;
+        }
         test_vectors += current_vector;
         if (current_vector.size() < 4096) {
             break;
@@ -58,12 +57,15 @@ void Upload::execute(Configuration *config) {
     }
     vector<vector<double>> unclassified;
     stringstream ss_test(test_vectors);
-    while (getline(ss_test, line, '\n')) {
+    while (getline(ss_test, line)) {
         stringstream vector_stream(line);
-        double number;
+        string number;
         vector<double> vector;
-        while (vector_stream >> number) {
-            vector.push_back(number);
+        while (getline(vector_stream, number, ',')) {
+            if(isNumeric(number)){
+                vector.push_back(stod(number));
+                //TODO: what if there is a string in the train .csv file
+            }
         }
         unclassified.push_back(vector);
     }
