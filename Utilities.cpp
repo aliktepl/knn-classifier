@@ -9,10 +9,12 @@
  * @return true if numeric, false if not
  */
 bool isInt(string str) {
+    int iter = 0;
     for (auto c: str) {
-        if(!isdigit(c)){
+        if(!isdigit(c) && !(c == '-' && iter == 0)){
             return false;
         }
+        iter++;
     }
     return true;
 }

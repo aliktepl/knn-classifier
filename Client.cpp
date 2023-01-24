@@ -143,14 +143,35 @@ int main(int argc, char **argv) {
                     bufferStr = string(buffer, strlen(buffer));
                     cout << bufferStr << endl;
                     // send new configuration
-                    cin >> str;
+                    str.clear();
+                    cin.get();
+                    getline(cin, str);
+                    if(str.empty()){
+                        data_len = 1;
+                        str.append("\n");
+                    } else {
+                        data_len = str.length();
+                    }
                     sent_bytes = send(sock, str.c_str(), data_len, 0);
                     if (sent_bytes < 0) {
                         close(sock);
                         break;
                         // error
                     }
-                    break;
+                    memset(buffer, 0, sizeof(buffer));
+                    // receive message if the operation was successful
+                    read_bytes = recv(sock, buffer, expected_data_len, 0);
+                    if (read_bytes < 0) {
+                        close(sock);
+                        // error
+                    }
+                    bufferStr = string(buffer, strlen(buffer));
+                    if(bufferStr == "ret"){
+                        break;
+                    } else {
+                        cout << bufferStr << endl;
+                        break;
+                    }
 
                 case 5:
                     // send option "5" to server
