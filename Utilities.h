@@ -12,7 +12,7 @@
 
 using namespace std;
 bool isInt(string str);
-bool isNumeric(string str);
+bool isNumeric(const string& str);
 bool isContained(vector<int> numVector, int num);
 bool checkMetric(const string& type);
 bool checkClassifiedVec(const string& elements);;
