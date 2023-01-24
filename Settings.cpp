@@ -23,8 +23,7 @@ void Settings::execute(Configuration *config) {
     string metric;
     while (ss >> word) {
         if (isInt(word)) {
-            //TODO - implement check k param
-            if(!checkKParam()) {
+            if(isInt(word)) {
                 error.append("Invalid value for K\n");
             } else {
                 k = (stoi(word));

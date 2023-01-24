@@ -23,7 +23,7 @@ public:
 
     void write(string data) override;
 
-    void exit() override;
+    void exit() const override;
 };
 
 

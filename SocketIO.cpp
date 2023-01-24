@@ -24,6 +24,6 @@ void SocketIO::write(string data) {
     }
 }
 
-void SocketIO::exit() {
+void SocketIO::exit() const {
     close(this->client_sock);
 }
