@@ -19,12 +19,16 @@ bool isInt(string str) {
     return true;
 }
 
-bool isNumeric(string str) {
-    int pointCount = 0, iterCount = 0, length = str.length();
-
+bool isNumeric(const string& str) {
+    int pointCount = 0, iterCount = 0, length = str.length(), exponentCount = 0, signCount = 0, exponentPosition;
     for (auto c: str) {
-        if (c == '.' && pointCount == 0 && 0 < iterCount && iterCount < length - 1) {
+        if (c == '.' && pointCount == 0 && 0 <= iterCount && iterCount < length - 1) {
             pointCount++;
+        } else if (c == 'E' && exponentCount == 0 && 0 < iterCount && iterCount < length - 1){
+            exponentPosition = iterCount;
+            exponentCount++;
+        } else if (c == '-' && signCount < 2 && (iterCount == 0 || iterCount == exponentPosition + 1)){
+            signCount++;
         } else if (!isdigit(c)) {
             return false;
         }
@@ -140,7 +144,7 @@ bool checkVectors(vector<Classified> train, vector<vector<double>> test) {
             return false;
         }
     }
-    for (const vector<double> &vector: test) {
+    for (const vector<double>& vector: test) {
         if (vector.size() != size) {
             return false;
         }
