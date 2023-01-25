@@ -24,7 +24,7 @@ void Display::execute(Configuration *config) {
     for (unsigned long i = 0; i < config->getClassifications().size(); i++) {
         results.append(to_string(i+1) + "    " + config->getClassifications()[i]+'\n');
     }
-    results.append("Done");
+    results.append("Done.");
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
     dio->write(results);
 }
