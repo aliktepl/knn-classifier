@@ -10,6 +10,7 @@ SocketIO::SocketIO(int client_sock) {
 
 string SocketIO::read() {
     char buffer[4096];
+    memset(buffer, 0, sizeof(buffer));
     int expected_data_len = sizeof(buffer);
     int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
     //convert the buffer to a string

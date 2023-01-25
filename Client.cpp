@@ -181,14 +181,19 @@ int main(int argc, char **argv) {
                         break;
                         // error
                     }
-                    memset(buffer, 0, sizeof(buffer));
                     // receive classifications
-                    read_bytes = recv(sock, buffer, expected_data_len, 0);
-                    if (read_bytes < 0) {
-                        close(sock);
-                        // error
+                    while (true) {
+                        memset(buffer, 0, sizeof(buffer));
+                        read_bytes = recv(sock, buffer, expected_data_len, 0);
+                        if (read_bytes < 0) {
+                            close(sock);
+                            break;
+                        }
+                        bufferStr.append(buffer);
+                        if(read_bytes < 4096) {
+                            break;
+                        }
                     }
-                    bufferStr = string(buffer, strlen(buffer));
                     if (bufferStr == "please upload data" || bufferStr == "please classify the data") {
                         cout << bufferStr << endl;
                         break;
@@ -218,14 +223,19 @@ int main(int argc, char **argv) {
                         break;
                         // error
                     }
-                    memset(buffer, 0, sizeof(buffer));
                     // receive operation 4 execution output from server
-                    read_bytes = recv(sock, buffer, expected_data_len, 0);
-                    if (read_bytes < 0) {
-                        close(sock);
-                        // error
+                    while (true) {
+                        memset(buffer, 0, sizeof(buffer));
+                        read_bytes = recv(sock, buffer, expected_data_len, 0);
+                        if (read_bytes < 0) {
+                            close(sock);
+                            break;
+                        }
+                        bufferStr.append(buffer);
+                        if(read_bytes < 4096) {
+                            break;
+                        }
                     }
-                    bufferStr = string(buffer, strlen(buffer));
                     cout << bufferStr << endl;
                     break;
 
