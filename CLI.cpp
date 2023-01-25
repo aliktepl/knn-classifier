@@ -39,7 +39,7 @@ DefaultIO *CLI::getDio() {
  * and is responsible for the flow of the interaction between client and server.
  * When the connection ends and the user decides to exit it ends.
  */
-void CLI::start(int id, bool *closeConnection) {
+void CLI::start(int id) {
     string menu;
     menu.append("Welcome to the KNN Classifier Server. Please choose an option:\n");
     for (auto command: getCommands()) {

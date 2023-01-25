@@ -8,6 +8,6 @@
 #include "SocketIO.h"
 
 using namespace std;
-void executeThread(int client_sock, bool* closeConnection);
+void executeThread(int client_sock);
 
 #endif //AX1_EX4_THREADWRAPPER_H

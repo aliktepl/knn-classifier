@@ -4,8 +4,8 @@
 
 #include "ThreadWrapper.h"
 
-void executeThread(int client_sock, bool* closeConnection){
+void executeThread(int client_sock){
     SocketIO sio(client_sock);
     CLI cli(&sio);
-    cli.start(client_sock, closeConnection);
+    cli.start(client_sock);
 }
