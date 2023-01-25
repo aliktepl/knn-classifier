@@ -41,3 +41,5 @@ This Program uses a Server - Client network interface to communicate and execute
 ###### SERVER
 The server uses a `command` design pattern, which enables us to seperate the servers execution operations implementations from the execution itself.  
 Meaning the IO is independent of the operations the server is running.  
+The following image describes the command interface and the relations between the server operations :  
+![image](https://user-images.githubusercontent.com/60584742/214577351-6b978ae8-895d-4e63-a626-6eff62b34d3f.png)
