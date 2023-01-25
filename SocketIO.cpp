@@ -19,6 +19,7 @@ string SocketIO::read() {
 }
 
 void SocketIO::write(string data) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
     int sent_bytes = send(client_sock, data.c_str(), data.size(), 0);
     if (sent_bytes < 0) {
         return;

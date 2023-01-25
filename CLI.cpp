@@ -41,6 +41,7 @@ DefaultIO *CLI::getDio() {
  */
 void CLI::start(int id, bool *closeConnection) {
     string menu;
+    menu.append("Welcome to the KNN Classifier Server. Please choose an option:\n");
     for (auto command: getCommands()) {
         menu.append(command->getDescription());
         menu.append("\n");
@@ -48,7 +49,6 @@ void CLI::start(int id, bool *closeConnection) {
     string option;
     Configuration config = Configuration();
     while (true) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
         getDio()->write(menu);
         option = getDio()->read();
         if (!isInt(option)) {

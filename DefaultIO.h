@@ -6,6 +6,8 @@
 #define AX1_EX4_DEFAULTIO_H
 
 #include "string"
+#include "thread"
+#include "chrono"
 
 using namespace std;
 
