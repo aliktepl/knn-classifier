@@ -30,5 +30,5 @@ void Classify::execute(Configuration *config) {
     }
     config->setClassifications(classifications);
     config->setExecute(true, 2);
-    dio->write("classifying data complete.");
+    dio->write("classifying data complete");
 }
