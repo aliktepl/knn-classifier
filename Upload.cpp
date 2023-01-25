@@ -20,6 +20,7 @@ void Upload::execute(Configuration *config) {
     vector<Classified> backup_vec = config->getTrainVectors();
     dio->write("Please upload your local train CSV file.");
     string train_vectors;
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
     while (true) {
         string current_vector = dio->read();
         if (current_vector == "ret") {
@@ -48,9 +49,10 @@ void Upload::execute(Configuration *config) {
         }
     }
     dio->write("Upload Complete.");
-    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
     dio->write("Please upload your local test CSV file.");
     string test_vectors;
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
     while (true) {
         string current_vector = dio->read();
         if (current_vector == "ret") {

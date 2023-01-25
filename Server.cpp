@@ -57,12 +57,8 @@ int main(int argc, char **argv) {
         }
         bool closeConnection = false;
         bool* ptrCloseConnection = &closeConnection;
-        thread t(executeThread, client_sock, ptrCloseConnection);
+        thread t(executeThread, client_sock);
         t.detach();
-        if(*(ptrCloseConnection)){
-            close(sock);
-            t.join();
-        }
     }
     return 0;
 }

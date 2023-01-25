@@ -26,7 +26,7 @@ private:
 public:
     explicit CLI(DefaultIO *dio);
 
-    void start(int id, bool *closeConnection);
+    void start(int id);
 
     vector<Command *> getCommands();
 
