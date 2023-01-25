@@ -7,7 +7,10 @@
 Display::Display(DefaultIO *dio) : Command(dio) {
     this->description = "4. display results";
 }
-
+/**
+ * Sends the classified vectors to the client for printing.
+ * @param config
+ */
 void Display::execute(Configuration *config) {
     if (!config->getExecutes()[0]){
         dio->write("please upload data");

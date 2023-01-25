@@ -19,6 +19,11 @@ bool isInt(string str) {
     return true;
 }
 
+/**
+ * Gets a string and checks if it's numeric of any type.
+ * @param str - a string
+ * @return true if the string is a number
+ */
 bool isNumeric(const string& str) {
     int pointCount = 0, iterCount = 0, length = str.length(), exponentCount = 0, signCount = 0, exponentPosition;
     for (auto c: str) {
@@ -137,6 +142,12 @@ void writeFile(string toWrite, string path){
     file.close();
 }
 
+/**
+ * Checks if all train vectors and test vectors are of the same size
+ * @param train - a vector of classified vectors
+ * @param test  - a vector of unclassified vectors
+ * @return true if all vectors are of the same length.
+ */
 bool checkVectors(vector<Classified> train, vector<vector<double>> test) {
     unsigned long size = train[0].getVector().size();
     for (Classified vector: train) {

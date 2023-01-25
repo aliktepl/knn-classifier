@@ -7,7 +7,9 @@
 SocketIO::SocketIO(int client_sock) {
     this->client_sock = client_sock;
 }
-
+/**
+ * reads from the client up to 4069 bytes.
+ */
 string SocketIO::read() {
     char buffer[4096];
     memset(buffer, 0, sizeof(buffer));
@@ -17,7 +19,10 @@ string SocketIO::read() {
     string buffer_str(buffer, read_bytes);
     return buffer_str;
 }
-
+/**
+ * Writes a string to the client.
+ * @param data
+ */
 void SocketIO::write(string data) {
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
     int sent_bytes = send(client_sock, data.c_str(), data.size(), 0);
@@ -25,7 +30,9 @@ void SocketIO::write(string data) {
         return;
     }
 }
-
+/**
+ * Closes connections and ends the lifecycle of hte client.
+ */
 void SocketIO::exit() const {
     close(this->client_sock);
 }
