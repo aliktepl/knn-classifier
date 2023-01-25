@@ -1,5 +1,5 @@
 CC := g++
-CFLAGS := -pthread -std=c++11
+CFLAGS := -std=c++11
 
 SOURCES := $(wildcard *.cpp)
 OBJECTS := $(patsubst %.cpp, %.o, $(SOURCES))
@@ -10,13 +10,13 @@ server_OBJS := $(filter-out Client.o, $(OBJECTS))
 all: client.out server.out
 
 client.out: $(client_OBJS)
-	$(CC) $^ -o $@
+	$(CC) $^ -o $@ -pthread
 
 server.out: $(server_OBJS)
-	$(CC) $^ -o $@
+	$(CC) $^ -o $@ -pthread
 
 %.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ -pthread
 
 clean:
 	rm -f client.out server.out $(OBJECTS)
