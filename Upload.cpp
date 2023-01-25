@@ -10,7 +10,12 @@
 Upload::Upload(DefaultIO *dio) : Command(dio) {
     this->description = "1. upload an unclassified csv data file";
 }
-
+/**
+ * The clients uploads 2 files, a train flies that's already classified and a test files that will be classified.
+ * the function organises the files into vector that can be classified and their validity is checked. if the vectors
+ * are invalid the vectors are not updated and an error is thrown.
+ * @param config
+ */
 void Upload::execute(Configuration *config) {
     vector<Classified> backup_vec = config->getTrainVectors();
     dio->write("Please upload your local train CSV file.");

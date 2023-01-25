@@ -6,6 +6,9 @@
 
 #include <utility>
 
+/**
+ * Configuration of the current KNN classifier, hold necessary data for the operation of the commands.
+ */
 Configuration::Configuration() {
     this->k = 5;
     this->metric = "AUC";

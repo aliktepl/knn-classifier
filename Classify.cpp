@@ -4,11 +4,17 @@
 
 #include "Classify.h"
 #include "kNearestNeighbors.h"
-
+/**
+ * classifies the input vectors
+ * @param dio - the input/output interface
+ */
 Classify::Classify(DefaultIO *dio) : Command(dio) {
     this->description = "3. classify data";
 }
-
+/**
+ * executes knn algorithm.
+ * @param config - necessary shared data.
+ */
 void Classify::execute(Configuration *config) {
     if (!config->getExecutes()[0]) {
         dio->write("please upload data");

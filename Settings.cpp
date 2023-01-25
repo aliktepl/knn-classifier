@@ -8,7 +8,11 @@ Settings::Settings(DefaultIO *dio) : Command(dio) {
     this->description = "2. algorithm settings";
 }
 
-
+/**
+ * The client sends new K and metric for the classifier to use, and they are added to the configuration, the default
+ * K and metric are K = 5, metric = AUC.
+ * @param config
+ */
 void Settings::execute(Configuration *config) {
     dio->write("The current KKN parameters are: K = " +
                 to_string(config->getK()) + ", distance metric = " + config->getMetric());
@@ -22,6 +26,7 @@ void Settings::execute(Configuration *config) {
     string word, error, metric;
     int k = 0;
     while (getline(ss, word, ' ')) {
+        //check if k is valid
         if (isInt(word)) {
             int num = stoi(word);
             if (0 < num && num <= config->getTrainVectors().size()) {
@@ -34,6 +39,7 @@ void Settings::execute(Configuration *config) {
                 }
             }
         }
+        //check if the metric is valid
         else {
             if(!checkMetric(word)) {
                 if(error.empty()){
@@ -52,20 +58,6 @@ void Settings::execute(Configuration *config) {
         config->setExecute(true, 1);
         dio->write("ret");
     } else {
-//        if(k == 0){
-//            if(error.empty()){
-//                error.append("Invalid value for K");
-//            } else {
-//                error.append("\nInvalid value for K");
-//            }
-//        }
-//        if(metric.empty()){
-//            if(error.empty()){
-//                error.append("Invalid value for metric");
-//            } else {
-//                error.append("\nInvalid value for metric");
-//            }
-//        }
         dio->write(error);
     }
 }

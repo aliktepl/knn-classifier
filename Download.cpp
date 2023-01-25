@@ -8,7 +8,10 @@ Download::Download(DefaultIO *dio) : Command(dio) {
     this->description = "5. download results";
 }
 
-
+/**
+ * Sends the classifications of the vectors to the client for the client to save them to a file.
+ * @param config
+ */
 void Download::execute(Configuration *config) {
     if (!config->getExecutes()[0]){
         dio->write("please upload data");

@@ -6,13 +6,20 @@
 #include "StandardIO.h"
 
 
-
+/**
+ * Reads input from the console
+ * @return
+ */
 string StandardIO::read() {
     string input;
     cin >> input;
     return input;
 }
 
+/**
+ * Writes the output to the console.
+ * @param output
+ */
 void StandardIO::write(string output) {
     cout << output << endl;
 }
