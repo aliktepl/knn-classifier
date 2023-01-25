@@ -22,6 +22,7 @@ void Display::execute(Configuration *config) {
         results.append(to_string(i+1) + "    " + config->getClassifications()[i]+'\n');
     }
     results.append("Done");
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
     dio->write(results);
 }
 
