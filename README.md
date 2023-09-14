@@ -1,5 +1,7 @@
-# AX1_EX4
-Advanced Programming course - Exercise 4
+# KNN Classifier
+Machine learning algorithm(K nearest neighbors) on a TCP server in C++ with command design and multi-threading capabilities.  
+Based on linear regression prediction module, the algorithm uses a mathamatical calculation and learns from uploaded data.  
+New data that is uploaded to it is then catagorized based off the calculation module.   
 ## Run
 - Clone the repository.
 ###### SERVER
