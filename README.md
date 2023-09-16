@@ -2,7 +2,7 @@
 
 Machine learning algorithm (K nearest neighbors) on a TCP server in C++ with command design and multi-threading capabilities.  
 Based on linear regression prediction module, the algorithm uses a mathematical calculation and learns from uploaded data.  
-New data that is uploaded to it is then categorized based on the calculation module.
+New data that is uploaded to it is then categorized based on the calculation module.  
 This is the final project of advanced programming 1 course in Bar-Ilan University.
 
 ## Table of Contents
